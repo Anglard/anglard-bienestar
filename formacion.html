@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formación & Mentoría — ANGLARD</title>
+    <meta name="description" content="Conocimiento aplicado y criterio estructural. Formación ejecutiva y mentoría para decisiones complejas.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-white: #FFFFFF;
+            --color-black: #0B0B0B;
+            --color-stone-light: #F4F4F2;
+            --color-border: #E6E6E3;
+            --color-accent: #0F3D2E;
+            
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Inter', sans-serif;
+            
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 96px;
+            
+            --border-radius: 14px;
+            --transition-speed: 200ms;
+            
+            --container-max: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-black);
+            background-color: var(--color-white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: var(--spacing-sm);
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-lg);
+            }
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 50;
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) 0;
+        }
+
+        .brand-logo {
+            height: 50px;
+            width: auto;
+        }
+
+        @media (min-width: 768px) {
+            .brand-logo {
+                height: 60px;
+            }
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: var(--spacing-lg);
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--color-black);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-accent);
+        }
+
+        .nav-links a:focus {
+            outline: 2px solid var(--color-black);
+            outline-offset: 4px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: var(--spacing-xs);
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-toggle {
+                display: none;
+            }
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--color-white);
+            z-index: 100;
+            padding: var(--spacing-2xl) var(--spacing-md);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu nav {
+            margin-top: var(--spacing-2xl);
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .mobile-menu a {
+            font-size: 1.25rem;
+            color: var(--color-black);
+            text-decoration: none;
+        }
+
+        .breadcrumb {
+            padding: var(--spacing-md) 0;
+            font-size: 0.85rem;
+            color: var(--color-black);
+            opacity: 0.6;
+        }
+
+        .breadcrumb a {
+            color: var(--color-black);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--color-accent);
+        }
+
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(rgba(11, 11, 11, 0.5), rgba(11, 11, 11, 0.5)), url('img/formacion-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: var(--spacing-2xl) var(--spacing-md);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600;
+            color: var(--color-white);
+            letter-spacing: 0.02em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1.25rem, 3vw, 2rem);
+            font-weight: 400;
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-text {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-xl);
+            opacity: 0.95;
+            max-width: 65ch;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: all var(--transition-speed) ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border-color: var(--color-black);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .btn-secondary {
+            background-color: var(--color-white);
+            color: var(--color-black);
+            border-color: var(--color-white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-stone-light);
+        }
+
+        .btn-inverted {
+            background-color: var(--color-white);
+            color: var(--color-black);
+            border: 1px solid var(--color-white);
+        }
+
+        .btn-inverted:hover {
+            background-color: var(--color-stone-light);
+            border-color: var(--color-stone-light);
+        }
+
+        .btn-large {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .section {
+            padding: var(--spacing-3xl) 0;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            letter-spacing: 0.02em;
+        }
+
+        .intro-section {
+            background-color: var(--color-stone-light);
+        }
+
+        .intro-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .intro-content p {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.9;
+        }
+
+        .programas-section {
+            background-color: var(--color-white);
+        }
+
+        .programas-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-2xl);
+        }
+
+        @media (min-width: 768px) {
+            .programas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .programa-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .programa-card:hover {
+            background-color: var(--color-stone-light);
+            box-shadow: 0 2px 8px rgba(11, 11, 11, 0.04);
+        }
+
+        .programa-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--color-accent);
+            background-color: rgba(15, 61, 46, 0.1);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 6px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .programa-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .programa-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.85;
+        }
+
+        .programa-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .programa-card li {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            padding-left: var(--spacing-md);
+            position: relative;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .programa-card li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+
+        .enfoque-section {
+            background-color: var(--color-stone-light);
+        }
+
+        .enfoque-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        @media (min-width: 768px) {
+            .enfoque-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .enfoque-card {
+            text-align: center;
+            padding: var(--spacing-lg);
+        }
+
+        .enfoque-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .enfoque-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .enfoque-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+        }
+
+        .mentoria-section {
+            background-color: var(--color-white);
+        }
+
+        .mentoria-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .mentoria-intro {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .mentoria-intro p {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            line-height: 1.8;
+            opacity: 0.9;
+            max-width: 65ch;
+            margin: 0 auto;
+        }
+
+        .mentoria-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        .mentoria-item {
+            border-left: 3px solid var(--color-accent);
+            padding-left: var(--spacing-lg);
+        }
+
+        .mentoria-item h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .mentoria-item p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+        }
+
+        .proceso-section {
+            background-color: var(--color-stone-light);
+        }
+
+        .proceso-steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .proceso-step {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: var(--spacing-lg);
+            align-items: start;
+        }
+
+        .proceso-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .proceso-content h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .proceso-content p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+        }
+
+        .ideal-section {
+            background-color: var(--color-white);
+        }
+
+        .ideal-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        @media (min-width: 768px) {
+            .ideal-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .ideal-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+        }
+
+        .ideal-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .ideal-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+        }
+
+        .faq-section {
+            background-color: var(--color-stone-light);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        details {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        summary {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: "+";
+            font-size: 1.5rem;
+            font-weight: 400;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        details p {
+            margin-top: var(--spacing-md);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+            max-width: 65ch;
+        }
+
+        .cta-final {
+            padding: var(--spacing-3xl) var(--spacing-md);
+            background-color: var(--color-black);
+            color: var(--color-white);
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto var(--spacing-2xl);
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--color-black);
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(15, 61, 46, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info {
+            margin-top: var(--spacing-xl);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .contact-info p {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .form-message {
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 500;
+            background-color: rgba(15, 61, 46, 0.2);
+            color: var(--color-white);
+            border: 1px solid rgba(15, 61, 46, 0.4);
+            display: none;
+        }
+
+        .form-message.show {
+            display: block;
+        }
+
+        .footer {
+            background-color: #1a1a1a;
+            color: var(--color-white);
+            padding: var(--spacing-lg) 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-md);
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            color: var(--color-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="index.html">
+                    <img src="img/logo.jpg" alt="ANGLARD" class="brand-logo">
+                </a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="executive-finance.html">Executive Finance</a></li>
+                        <li><a href="bienestar-corporal.html">Bienestar Corporal</a></li>
+                        <li><a href="formacion.html" class="active">Formación</a></li>
+                        <li><a href="makawan.html">Makawán</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+                <button class="mobile-menu-toggle" aria-label="Abrir menú">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Cerrar menú">×</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="executive-finance.html">Executive Finance</a></li>
+                <li><a href="bienestar-corporal.html">Bienestar Corporal</a></li>
+                <li><a href="formacion.html">Formación</a></li>
+                <li><a href="makawan.html">Makawán</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Inicio</a> / Formación & Mentoría
+        </div>
+    </div>
+
+    <main id="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Formación & Mentoría</h1>
+                <h2 class="hero-subtitle">Conocimiento aplicado y criterio estructural.</h2>
+                <p class="hero-text">Programas de formación ejecutiva y mentoría individual para desarrollar pensamiento estratégico, rigor analítico y claridad de decisión.</p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="btn btn-primary">Solicitar información</a>
+                    <a href="#programas" class="btn btn-secondary">Ver programas</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section intro-section">
+            <div class="container">
+                <div class="intro-content">
+                    <p>No enseño teoría. Transmito criterio.</p>
+                    <p>La formación ejecutiva no es acumular información: es desarrollar la capacidad de pensar con rigor, decidir con claridad y ejecutar con disciplina. Trabajo con profesionales y equipos que buscan elevar su nivel de análisis, estructuración y toma de decisiones.</p>
+                    <p>Mi enfoque combina marcos conceptuales sólidos, casos reales, ejercicios aplicados y seguimiento personalizado. El objetivo no es que "sepas más", sino que pienses mejor.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="programas" class="section programas-section">
+            <div class="container">
+                <h2 class="section-title">Programas de Formación</h2>
+                <div class="programas-grid">
+                    <div class="programa-card">
+                        <span class="programa-tag">Programa grupal</span>
+                        <h3>Pensamiento Estratégico Aplicado</h3>
+                        <p>Programa intensivo de 8 semanas para desarrollar capacidad de análisis estructural, diseño de estrategia y toma de decisiones bajo incertidumbre.</p>
+                        <ul>
+                            <li>Marcos de análisis estratégico (Porter, Blue Ocean, Jobs-to-be-Done)</li>
+                            <li>Evaluación de opciones y trade-offs</li>
+                            <li>Diseño de escenarios y análisis de riesgo</li>
+                            <li>Casos reales de empresas y proyectos</li>
+                            <li>Sesiones en vivo + material asíncrono</li>
+                            <li>Proyecto final aplicado a tu contexto</li>
+                        </ul>
+                        <a href="#contacto" class="btn btn-primary">Solicitar información</a>
+                    </div>
+
+                    <div class="programa-card">
+                        <span class="programa-tag">Programa grupal</span>
+                        <h3>Finanzas para No Financieros</h3>
+                        <p>Formación ejecutiva en modelado financiero, análisis de estados financieros y evaluación de proyectos para directores operativos, producto y marketing.</p>
+                        <ul>
+                            <li>Lectura e interpretación de estados financieros</li>
+                            <li>Construcción de modelos financieros en Excel</li>
+                            <li>Valuación de proyectos (NPV, IRR, payback)</li>
+                            <li>Unit economics y métricas de negocio</li>
+                            <li>Análisis de sensibilidad y escenarios</li>
+                            <li>Comunicación financiera para stakeholders</li>
+                        </ul>
+                        <a href="#contacto" class="btn btn-primary">Solicitar información</a>
+                    </div>
+
+                    <div class="programa-card">
+                        <span class="programa-tag">Programa in-company</span>
+                        <h3>Decisiones Complejas en Contexto Ejecutivo</h3>
+                        <p>Taller customizado para equipos directivos que enfrentan decisiones de alto impacto: reestructuras, pivotes, inversiones, M&A o crisis.</p>
+                        <ul>
+                            <li>Diagnóstico de situación actual</li>
+                            <li>Frameworks de toma de decisiones</li>
+                            <li>Análisis estructurado de opciones</li>
+                            <li>Gestión de disenso y alineación</li>
+                            <li>Plan de acción y métricas de seguimiento</li>
+                            <li>Formato: 2-3 días intensivos + seguimiento</li>
+                        </ul>
+                        <a href="#contacto" class="btn btn-primary">Solicitar información</a>
+                    </div>
+
+                    <div class="programa-card">
+                        <span class="programa-tag">Programa universitario</span>
+                        <h3>Análisis de Casos & Método Socrático</h3>
+                        <p>Curso semestral para instituciones académicas enfocado en desarrollo de pensamiento crítico mediante análisis de casos complejos y discusión estructurada.</p>
+                        <ul>
+                            <li>Método de casos (estilo HBS)</li>
+                            <li>Facilitación socrática</li>
+                            <li>Análisis multi-perspectiva</li>
+                            <li>Argumentación y defensa de posición</li>
+                            <li>Evaluación por participación y análisis escrito</li>
+                            <li>Casos de estrategia, finanzas y operaciones</li>
+                        </ul>
+                        <a href="#contacto" class="btn btn-primary">Solicitar información</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section enfoque-section">
+            <div class="container">
+                <h2 class="section-title">Enfoque Pedagógico</h2>
+                <div class="enfoque-grid">
+                    <div class="enfoque-card">
+                        <div class="enfoque-icon">📐</div>
+                        <h3>Rigor conceptual</h3>
+                        <p>Marcos teóricos sólidos como base, pero siempre traducidos a aplicación práctica. Sin divagación académica.</p>
+                    </div>
+                    <div class="enfoque-card">
+                        <div class="enfoque-icon">🎯</div>
+                        <h3>Casos reales</h3>
+                        <p>Trabajo con situaciones reales (anonimizadas cuando es necesario) para desarrollar criterio transferible, no recetas.</p>
+                    </div>
+                    <div class="enfoque-card">
+                        <div class="enfoque-icon">⚡</div>
+                        <h3>Feedback directo</h3>
+                        <p>Retroalimentación clara, honesta y constructiva. El objetivo es que mejores, no que te sientas cómodo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mentoria" class="section mentoria-section">
+            <div class="container">
+                <h2 class="section-title">Mentoría Ejecutiva Individual</h2>
+                <div class="mentoria-content">
+                    <div class="mentoria-intro">
+                        <p>Acompañamiento personalizado para ejecutivos, fundadores y profesionales senior que enfrentan transiciones de carrera, decisiones complejas o desafíos de liderazgo.</p>
+                    </div>
+                    <div class="mentoria-items">
+                        <div class="mentoria-item">
+                            <h3>Transiciones de carrera</h3>
+                            <p>Cambio de industria, salto a C-level, paso a emprendimiento o evaluación de oportunidades. Análisis estructurado de opciones, clarificación de criterios y diseño de ruta.</p>
+                        </div>
+                        <div class="mentoria-item">
+                            <h3>Desarrollo de liderazgo</h3>
+                            <p>Trabajo en estilos de comunicación, toma de decisiones bajo presión, gestión de equipos y stakeholders. Enfoque en comportamientos observables, no en teoría abstracta.</p>
+                        </div>
+                        <div class="mentoria-item">
+                            <h3>Decisiones de alto impacto</h3>
+                            <p>Acompañamiento en decisiones complejas: aceptar una oferta, dejar un rol, reestructurar un equipo, o pivotear un proyecto. Análisis riguroso y espacio para pensar en voz alta.</p>
+                        </div>
+                        <div class="mentoria-item">
+                            <h3>Preparación para boards</h3>
+                            <p>Entrenamiento para presentaciones ante consejos, inversionistas o comités. Diseño de narrativa, anticipación de preguntas difíciles y manejo de objeciones.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section proceso-section">
+            <div class="container">
+                <h2 class="section-title">Proceso de Trabajo</h2>
+                <div class="proceso-steps">
+                    <div class="proceso-step">
+                        <div class="proceso-number">1</div>
+                        <div class="proceso-content">
+                            <h3>Diagnóstico</h3>
+                            <p>Sesión exploratoria para entender contexto, objetivos de aprendizaje y restricciones. Diseño de programa personalizado o selección de formato grupal adecuado.</p>
+                        </div>
+                    </div>
+
+                    <div class="proceso-step">
+                        <div class="proceso-number">2</div>
+                        <div class="proceso-content">
+                            <h3>Desarrollo</h3>
+                            <p>Ejecución del programa con sesiones estructuradas, material de lectura, ejercicios aplicados y casos para análisis. Feedback continuo y ajustes según progreso.</p>
+                        </div>
+                    </div>
+
+                    <div class="proceso-step">
+                        <div class="proceso-number">3</div>
+                        <div class="proceso-content">
+                            <h3>Aplicación</h3>
+                            <p>Proyecto final aplicado a situación real del participante. Presentación, defensa y plan de implementación. El aprendizaje se valida en la ejecución.</p>
+                        </div>
+                    </div>
+
+                    <div class="proceso-step">
+                        <div class="proceso-number">4</div>
+                        <div class="proceso-content">
+                            <h3>Seguimiento</h3>
+                            <p>Sesiones de seguimiento opcionales para resolver dudas, refinar aplicación o profundizar en temas específicos. Comunidad de alumni en programas selectos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section ideal-section">
+            <div class="container">
+                <h2 class="section-title">¿Para quién es?</h2>
+                <div class="ideal-grid">
+                    <div class="ideal-card">
+                        <h3>Ejecutivos en transición</h3>
+                        <p>Profesionales senior que buscan desarrollar nuevas capacidades para asumir roles de mayor complejidad o cambiar de industria.</p>
+                    </div>
+                    <div class="ideal-card">
+                        <h3>Fundadores y CEOs</h3>
+                        <p>Emprendedores que necesitan estructurar su pensamiento estratégico, mejorar toma de decisiones o prepararse para escalar.</p>
+                    </div>
+                    <div class="ideal-card">
+                        <h3>Equipos directivos</h3>
+                        <p>Organizaciones que buscan elevar el nivel de análisis y ejecución de sus líderes mediante formación customizada.</p>
+                    </div>
+                    <div class="ideal-card">
+                        <h3>Profesionales ambiciosos</h3>
+                        <p>Personas que invierten en su desarrollo intelectual y buscan marcos de pensamiento más sofisticados que los típicos cursos corporativos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section faq-section">
+            <div class="container">
+                <h2 class="section-title">Preguntas Frecuentes</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>¿Cuál es el perfil típico de participantes?</summary>
+                        <p>Ejecutivos con 5+ años de experiencia, directores funcionales, fundadores de startups en crecimiento, o profesionales senior en transición. El requisito principal es hambre intelectual y disposición a ser desafiado.</p>
+                    </details>
+                    <details>
+                        <summary>¿Los programas son presenciales u online?</summary>
+                        <p>Depende del formato. Programas grupales son híbridos (sesiones online en vivo + trabajo asíncrono). Mentoría individual puede ser presencial en CDMX o remota. Talleres in-company son presenciales.</p>
+                    </details>
+                    <details>
+                        <summary>¿Cuánto tiempo debo dedicar semanalmente?</summary>
+                        <p>Programas grupales requieren 4-6 horas/semana (sesiones + trabajo individual). Mentoría es más flexible, típicamente 2-4 sesiones/mes de 90 minutos. El aprendizaje real viene del trabajo entre sesiones.</p>
+                    </details>
+                    <details>
+                        <summary>¿Ofrecen certificación?</summary>
+                        <p>Entrego constancia de participación en programas formales, pero no me enfoco en credenciales. El valor está en el desarrollo de capacidad real, no en un papel para colgar.</p>
+                    </details>
+                    <details>
+                        <summary>¿Cuál es la inversión?</summary>
+                        <p>Programas grupales desde $25,000 MXN. Mentoría individual desde $15,000 MXN/mes. Talleres in-company según alcance. Cotizo después de sesión exploratoria para entender necesidades específicas.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="cta-final">
+            <div class="container">
+                <h2 class="cta-title">Trabajemos con intención.</h2>
+                
+                <form action="https://formspree.io/f/mvzbrabg" method="POST" class="contact-form" id="contactForm">
+                    <div class="form-message" id="formMessage">¡Mensaje enviado con éxito! Te contactaremos pronto.</div>
+                    
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cellphone">Celular</label>
+                        <input type="tel" id="cellphone" name="cellphone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mensaje</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-inverted btn-large">Enviar</button>
+                </form>
+                
+                <div class="contact-info">
+                    <p>CDMX — México</p>
+                    <p>WhatsApp: +52 56 3709 1144</p>
+                    <p>Correo: jorge.anglard@gmail.com</p>
+                    <p>LinkedIn: linkedin.com/in/anglard-cervantes-ab5b465</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">ANGLARD 2026</p>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Aviso de privacidad</a></li>
+                    <li><a href="#top">Volver arriba</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.documentElement.style.scrollBehavior = 'smooth';
+        
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.style.scrollBehavior = 'auto';
+        }
+
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        const form = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    formMessage.classList.add('show');
+                    form.reset();
+                    setTimeout(() => {
+                        formMessage.classList.remove('show');
+                    }, 5000);
+                } else {
+                    formMessage.innerHTML = 'Hubo un problema. Por favor intenta nuevamente.';
+                    formMessage.classList.add('show');
+                }
+            }).catch(error => {
+                formMessage.innerHTML = 'Hubo un error. Por favor intenta nuevamente.';
+                formMessage.classList.add('show');
+            });
+        });
+    </script>
+</body>
+</html>

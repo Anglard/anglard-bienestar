@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANGLARD — Estrategia. Presencia. Transformación.</title>
+    <meta name="description" content="Finanzas de alto nivel. Bienestar profundo. Formación real.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-white: #FFFFFF;
+            --color-black: #0B0B0B;
+            --color-stone-light: #F4F4F2;
+            --color-border: #E6E6E3;
+            --color-accent: #0F3D2E;
+            
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Inter', sans-serif;
+            
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 96px;
+            
+            --border-radius: 14px;
+            --transition-speed: 200ms;
+            
+            --container-max: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            #intro-overlay {
+                display: none !important;
+            }
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-black);
+            background-color: var(--color-white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 1;
+            transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #intro-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .intro-content {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 40px;
+        }
+
+        .line-vertical {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, #1e3a5f 20%, #1e3a5f 80%, transparent 100%);
+            transform: translateX(-50%) scaleY(0);
+            transform-origin: top center;
+            animation: drawVertical 500ms cubic-bezier(0.4, 0, 0.2, 1) 300ms forwards;
+        }
+
+        .line-horizontal {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent 0%, #1e3a5f 20%, #1e3a5f 80%, transparent 100%);
+            transform: translateY(-50%) scaleX(0);
+            transform-origin: center center;
+            animation: drawHorizontal 500ms cubic-bezier(0.4, 0, 0.2, 1) 800ms forwards;
+        }
+
+        .circle-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 180px;
+            height: 180px;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: fadeInCircle 400ms cubic-bezier(0.4, 0, 0.2, 1) 1300ms forwards;
+        }
+
+        .circle-ring circle {
+            fill: none;
+            stroke: #1e3a5f;
+            stroke-width: 3;
+            stroke-dasharray: 565;
+            stroke-dashoffset: 565;
+            animation: drawCircle 400ms cubic-bezier(0.4, 0, 0.2, 1) 1300ms forwards;
+        }
+
+        .silhouette {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 120px;
+            opacity: 0;
+            animation: fadeInSilhouette 400ms cubic-bezier(0.4, 0, 0.2, 1) 1700ms forwards;
+        }
+
+        .silhouette-body {
+            fill: #1e3a5f;
+        }
+
+        .center-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: #5dd9d1;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: fadeInDot 300ms cubic-bezier(0.4, 0, 0.2, 1) 1900ms forwards;
+        }
+
+        .text-anglard {
+            font-family: var(--font-serif);
+            font-size: 36px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: #1e3a5f;
+            opacity: 0;
+            transform: scaleX(1.2);
+            animation: revealAnglard 400ms cubic-bezier(0.4, 0, 0.2, 1) 2000ms forwards;
+        }
+
+        .text-bienestar {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: #7a8b9a;
+            margin-top: 8px;
+            opacity: 0;
+            animation: fadeInBienestar 300ms cubic-bezier(0.4, 0, 0.2, 1) 2200ms forwards;
+        }
+
+        @keyframes drawVertical {
+            to {
+                transform: translateX(-50%) scaleY(1);
+            }
+        }
+
+        @keyframes drawHorizontal {
+            to {
+                transform: translateY(-50%) scaleX(1);
+            }
+        }
+
+        @keyframes fadeInCircle {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes drawCircle {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes fadeInSilhouette {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDot {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes revealAnglard {
+            to {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+        }
+
+        @keyframes fadeInBienestar {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: var(--spacing-sm);
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-lg);
+            }
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 50;
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) 0;
+        }
+
+        .brand-logo {
+            height: 50px;
+            width: auto;
+        }
+
+        @media (min-width: 768px) {
+            .brand-logo {
+                height: 60px;
+            }
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: var(--spacing-lg);
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--color-black);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent);
+        }
+
+        .nav-links a:focus {
+            outline: 2px solid var(--color-black);
+            outline-offset: 4px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(rgba(11, 11, 11, 0.4), rgba(11, 11, 11, 0.4)), url('img/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: var(--spacing-2xl) var(--spacing-md);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 600;
+            color: var(--color-white);
+            letter-spacing: 0.02em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 400;
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-text {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-xl);
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: all var(--transition-speed) ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border: 1px solid var(--color-black);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .btn-primary:focus {
+            outline: 2px solid var(--color-white);
+            outline-offset: 2px;
+        }
+
+        .btn-secondary {
+            background-color: var(--color-white);
+            color: var(--color-black);
+            border: 1px solid var(--color-black);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-stone-light);
+        }
+
+        .btn-secondary:focus {
+            outline: 2px solid var(--color-black);
+            outline-offset: 2px;
+        }
+
+        .btn-inverted {
+            background-color: var(--color-white);
+            color: var(--color-black);
+            border: 1px solid var(--color-white);
+        }
+
+        .btn-inverted:hover {
+            background-color: var(--color-stone-light);
+            border-color: var(--color-stone-light);
+        }
+
+        .btn-inverted:focus {
+            outline: 2px solid var(--color-white);
+            outline-offset: 2px;
+        }
+
+        .btn-large {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            letter-spacing: 0.02em;
+        }
+
+        .comunidades {
+            padding: var(--spacing-3xl) 0;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        @media (min-width: 768px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .card:hover {
+            background-color: var(--color-stone-light);
+            box-shadow: 0 2px 8px rgba(11, 11, 11, 0.04);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.9;
+        }
+
+        .card-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-black);
+            opacity: 0.85;
+        }
+
+        .card-cta {
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-black);
+            text-decoration: none;
+            border-bottom: 1px solid var(--color-border);
+            transition: all var(--transition-speed) ease;
+            padding: var(--spacing-xs) var(--spacing-md);
+            background-color: var(--color-white);
+            border: 1px solid var(--color-black);
+            border-radius: var(--border-radius);
+        }
+
+        .card:hover .card-cta {
+            color: var(--color-white);
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .card-cta:focus {
+            outline: 2px solid var(--color-black);
+            outline-offset: 2px;
+        }
+
+        .filosofia {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-stone-light);
+            text-align: center;
+        }
+
+        .filosofia-quote {
+            font-family: var(--font-serif);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: var(--spacing-2xl);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pilares {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .pilares {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .pilar p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 400;
+        }
+
+        .servicios {
+            padding: var(--spacing-3xl) 0;
+        }
+
+        .service-block {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        @media (min-width: 768px) {
+            .service-block {
+                grid-template-columns: repeat(2, 1fr);
+                align-items: center;
+            }
+            
+            .service-block-right {
+                direction: rtl;
+            }
+            
+            .service-block-right > * {
+                direction: ltr;
+            }
+        }
+
+        .service-image {
+            width: 100%;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--border-radius);
+        }
+
+        @media (min-width: 768px) {
+            .service-image {
+                height: 400px;
+            }
+        }
+
+        .service-content {
+            padding: var(--spacing-md) 0;
+        }
+
+        .service-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .service-description {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-lg);
+            opacity: 0.85;
+        }
+
+        .metodo {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-white);
+        }
+
+        .metodo-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-lg);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .metodo-diagram {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        .metodo-step {
+            flex: 1;
+            text-align: center;
+            padding: var(--spacing-lg);
+        }
+
+        .metodo-step-title {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: 0.05em;
+        }
+
+        .metodo-step-description {
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        .metodo-arrow {
+            font-size: 1.5rem;
+            opacity: 0.5;
+            transform: rotate(90deg);
+        }
+
+        @media (min-width: 768px) {
+            .metodo-arrow {
+                transform: rotate(0deg);
+            }
+        }
+
+        .credenciales {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-stone-light);
+        }
+
+        .timeline {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: var(--spacing-md) 0;
+            text-align: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .timeline-item:not(:last-child) {
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .timeline-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .timeline-item-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+
+        .timeline-icon {
+            font-size: 0.9rem;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .timeline-item.active .timeline-icon {
+            transform: rotate(180deg);
+        }
+
+        .timeline-details {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 0;
+        }
+
+        .timeline-item.active .timeline-details {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: var(--spacing-md);
+        }
+
+        .timeline-details p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--color-black);
+            opacity: 0.85;
+            text-align: left;
+            padding: 0 var(--spacing-md);
+        }
+
+        .cta-final {
+            padding: var(--spacing-3xl) var(--spacing-md);
+            background-color: var(--color-black);
+            color: var(--color-white);
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto var(--spacing-2xl);
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--color-black);
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(15, 61, 46, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info {
+            margin-top: var(--spacing-xl);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .contact-info p {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .footer {
+            background-color: #1a1a1a;
+            color: var(--color-white);
+            padding: var(--spacing-lg) 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .footer-link {
+            font-size: 0.9rem;
+            color: var(--color-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+        }
+
+        .footer-link:focus {
+            outline: 2px solid var(--color-white);
+            outline-offset: 2px;
+        }
+
+        .form-message {
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 500;
+            background-color: rgba(15, 61, 46, 0.2);
+            color: var(--color-white);
+            border: 1px solid rgba(15, 61, 46, 0.4);
+            display: none;
+        }
+
+        .form-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="intro-overlay">
+        <div class="intro-content">
+            <div class="logo-container">
+                <div class="line-vertical"></div>
+                <div class="line-horizontal"></div>
+                <svg class="circle-ring" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="90"></circle>
+                </svg>
+                <svg class="silhouette" viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg">
+                    <path class="silhouette-body" d="M40,10 L40,0 M40,10 C45,10 50,15 50,25 L50,50 L60,50 L60,55 L50,55 L50,80 L55,120 L45,120 L40,90 L35,120 L25,120 L30,80 L30,55 L20,55 L20,50 L30,50 L30,25 C30,15 35,10 40,10 Z"/>
+                </svg>
+                <div class="center-dot"></div>
+            </div>
+            <div class="text-anglard">ANGLARD</div>
+            <div class="text-bienestar">BIENESTAR</div>
+        </div>
+    </div>
+
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <header class="navbar" role="banner">
+        <div class="container">
+            <div class="navbar-content">
+                <div class="navbar-brand">
+                    <img src="img/logo.jpg" alt="ANGLARD" class="brand-logo">
+                </div>
+                <nav role="navigation" aria-label="Navegación principal">
+                    <ul class="nav-links">
+                        <li><a href="#comunidades">Executive Finance</a></li>
+                        <li><a href="#comunidades">Bienestar Corporal</a></li>
+                        <li><a href="#comunidades">Formación</a></li>
+                        <li><a href="#comunidades">Makawán</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="hero" aria-label="Sección principal">
+            <div class="hero-content">
+                <h1 class="hero-title">ANGLARD</h1>
+                <h2 class="hero-subtitle">Estrategia. Presencia. Transformación.</h2>
+                <p class="hero-text">Finanzas de alto nivel. Bienestar profundo. Formación real.</p>
+                <div class="hero-buttons">
+                    <a href="#comunidades" class="btn btn-primary">Explorar Comunidades</a>
+                    <a href="#contacto" class="btn btn-secondary">Agendar Sesión</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="comunidades" class="comunidades" aria-labelledby="comunidades-heading">
+            <div class="container">
+                <h2 id="comunidades-heading" class="section-title">Comunidades</h2>
+                <div class="cards-grid">
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">🜂</div>
+                        <h3 class="card-title">Executive Finance</h3>
+                        <p class="card-description">Estrategia financiera para decisiones de alto impacto.</p>
+                        <a href="executive-finance.html" class="card-cta">Descubrir</a>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">🜁</div>
+                        <h3 class="card-title">Bienestar Corporal</h3>
+                        <p class="card-description">Recuperación profunda con técnica y presencia.</p>
+                        <a href="bienestar-corporal.html" class="card-cta">Descubrir</a>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">🜃</div>
+                        <h3 class="card-title">Formación & Mentoría</h3>
+                        <p class="card-description">Conocimiento aplicado y criterio estructural.</p>
+                        <a href="formacion.html" class="card-cta">Descubrir</a>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">🜄</div>
+                        <h3 class="card-title">Makawán</h3>
+                        <p class="card-description">Lenguaje, símbolo y arquitectura narrativa.</p>
+                        <a href="makawan.html" class="card-cta">Descubrir</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="filosofia" aria-labelledby="filosofia-heading">
+            <div class="container">
+                <h2 id="filosofia-heading" class="filosofia-quote">No vendo servicios.<br>Diseño estructuras de transformación.</h2>
+                <div class="pilares">
+                    <div class="pilar">
+                        <p>Rigor técnico.</p>
+                    </div>
+                    <div class="pilar">
+                        <p>Presencia física.</p>
+                    </div>
+                    <div class="pilar">
+                        <p>Profundidad simbólica.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios" class="servicios" aria-labelledby="servicios-heading">
+            <div class="container">
+                <h2 id="servicios-heading" class="section-title">Servicios Destacados</h2>
+                
+                <article class="service-block service-block-left">
+                    <div class="service-image" style="background-image: linear-gradient(rgba(11, 11, 11, 0.2), rgba(11, 11, 11, 0.2)), url('img/service-a.jpg')" role="img" aria-label="Dirección Financiera Estratégica"></div>
+                    <div class="service-content">
+                        <h3 class="service-title">Dirección Financiera Estratégica</h3>
+                        <p class="service-description">Proyectos. Capital. Riesgo.</p>
+                        <a href="#contacto" class="btn btn-secondary">Solicitar información</a>
+                    </div>
+                </article>
+
+                <article class="service-block service-block-right">
+                    <div class="service-image" style="background-image: linear-gradient(rgba(11, 11, 11, 0.2), rgba(11, 11, 11, 0.2)), url('img/service-b.jpg')" role="img" aria-label="Experiencia Integral Anglard"></div>
+                    <div class="service-content">
+                        <h3 class="service-title">Experiencia Integral Anglard</h3>
+                        <p class="service-description">90–120 minutos de intervención profunda.</p>
+                        <a href="#contacto" class="btn btn-secondary">Agendar</a>
+                    </div>
+                </article>
+
+                <article class="service-block service-block-left">
+                    <div class="service-image" style="background-image: linear-gradient(rgba(11, 11, 11, 0.2), rgba(11, 11, 11, 0.2)), url('img/service-c.jpg')" role="img" aria-label="Mentoría Ejecutiva Privada"></div>
+                    <div class="service-content">
+                        <h3 class="service-title">Mentoría Ejecutiva Privada</h3>
+                        <p class="service-description">Decisiones complejas. Claridad estructural.</p>
+                        <a href="#contacto" class="btn btn-secondary">Aplicar</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="metodo" class="metodo" aria-labelledby="metodo-heading">
+            <div class="container">
+                <h2 id="metodo-heading" class="section-title">Método</h2>
+                <div class="metodo-diagram">
+                    <div class="metodo-step">
+                        <div class="metodo-step-title">ANÁLISIS</div>
+                        <p class="metodo-step-description">Diagnóstico profundo.</p>
+                    </div>
+                    <div class="metodo-arrow" aria-hidden="true">→</div>
+                    <div class="metodo-step">
+                        <div class="metodo-step-title">REESTRUCTURA</div>
+                        <p class="metodo-step-description">Arquitectura estratégica.</p>
+                    </div>
+                    <div class="metodo-arrow" aria-hidden="true">→</div>
+                    <div class="metodo-step">
+                        <div class="metodo-step-title">IMPLEMENTACIÓN</div>
+                        <p class="metodo-step-description">Ejecución disciplinada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="credenciales" class="credenciales" aria-labelledby="credenciales-heading">
+            <div class="container">
+                <h2 id="credenciales-heading" class="section-title">Credenciales</h2>
+                <div class="timeline">
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-item-title">
+                            <p>Top 30 Masoterapeutas México</p>
+                            <span class="timeline-icon">▼</span>
+                        </div>
+                        <div class="timeline-details">
+                            <p>Reconocimiento otorgado por el Asociación Latinoamericana de Masoterapia por excelencia en técnicas de recuperación profunda y enfoque integral en bienestar corporal. Especialización en terapia manual avanzada y métodos de intervención somática.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-item-title">
+                            <p>Experiencia financiera senior</p>
+                            <span class="timeline-icon">▼</span>
+                        </div>
+                        <div class="timeline-details">
+                            <p>Más de 22 años liderando estrategia financiera y dirección de proyectos de capital para empresas de alto crecimiento. Especialización en estructuración de riesgo, modelado financiero avanzado y decisiones de inversión de alto impacto.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-item-title">
+                            <p>Docencia universitaria</p>
+                            <span class="timeline-icon">▼</span>
+                        </div>
+                        <div class="timeline-details">
+                            <p>Profesor de Finanzas Corporativas y Estrategia en instituciones de educación superior. Desarrollo de programas académicos enfocados en criterio estructural, análisis de casos complejos y formación de pensamiento estratégico aplicado.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" onclick="toggleTimeline(this)">
+                        <div class="timeline-item-title">
+                            <p>Proyectos editoriales</p>
+                            <span class="timeline-icon">▼</span>
+                        </div>
+                        <div class="timeline-details">
+                            <p>Dirección y colaboración en proyectos de contenido especializado en lenguaje, símbolo y arquitectura narrativa. Trabajo en publicaciones que integran profundidad conceptual con claridad comunicativa para audiencias ejecutivas y académicas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="cta-final" aria-labelledby="contacto-heading">
+            <div class="container">
+                <h2 id="contacto-heading" class="cta-title">Trabajemos con intención.</h2>
+                
+                <form action="https://formspree.io/f/mvzbrabg" method="POST" class="contact-form" id="contactForm">
+                    <div class="form-message" id="formMessage">¡Mensaje enviado con éxito! Te contactaremos pronto.</div>
+                    
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cellphone">Celular</label>
+                        <input type="tel" id="cellphone" name="cellphone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mensaje</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-inverted btn-large">Enviar</button>
+                </form>
+                
+                <div class="contact-info">
+                    <p>CDMX — México</p>
+                    <p>WhatsApp: +52 56 3709 1144</p>
+                    <p>Correo: jorge.anglard@gmail.com</p>
+                    <p>LinkedIn: linkedin.com/in/anglard-cervantes-ab5b465</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">ANGLARD 2026</p>
+                <a href="#" class="footer-link">Aviso de privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.documentElement.style.scrollBehavior = 'smooth';
+        
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.style.scrollBehavior = 'auto';
+        }
+
+        const introOverlay = document.getElementById('intro-overlay');
+        
+        function skipIntro() {
+            introOverlay.classList.add('fade-out');
+            setTimeout(() => {
+                introOverlay.remove();
+            }, 500);
+        }
+
+        introOverlay.addEventListener('click', skipIntro);
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+                skipIntro();
+            }
+        });
+
+        setTimeout(() => {
+            skipIntro();
+        }, 2500);
+
+        function toggleTimeline(element) {
+            const allItems = document.querySelectorAll('.timeline-item');
+            const isActive = element.classList.contains('active');
+            
+            allItems.forEach(item => {
+                if (item !== element) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            if (isActive) {
+                element.classList.remove('active');
+            } else {
+                element.classList.add('active');
+            }
+        }
+
+        const form = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    formMessage.classList.add('show');
+                    form.reset();
+                    setTimeout(() => {
+                        formMessage.classList.remove('show');
+                    }, 5000);
+                } else {
+                    formMessage.innerHTML = 'Hubo un problema. Por favor intenta nuevamente.';
+                    formMessage.classList.add('show');
+                }
+            }).catch(error => {
+                formMessage.innerHTML = 'Hubo un error. Por favor intenta nuevamente.';
+                formMessage.classList.add('show');
+            });
+        });
+    </script>
+</body>
+</html>

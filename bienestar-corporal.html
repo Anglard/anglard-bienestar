@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienestar Corporal — ANGLARD</title>
+    <meta name="description" content="Recuperación profunda con técnica y presencia. Intervenciones corporales de alto nivel.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-white: #FFFFFF;
+            --color-black: #0B0B0B;
+            --color-stone-light: #F4F4F2;
+            --color-border: #E6E6E3;
+            --color-accent: #0F3D2E;
+            
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Inter', sans-serif;
+            
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 96px;
+            
+            --border-radius: 14px;
+            --transition-speed: 200ms;
+            
+            --container-max: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-black);
+            background-color: var(--color-white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: var(--spacing-sm);
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-lg);
+            }
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 50;
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) 0;
+        }
+
+        .brand-logo {
+            height: 50px;
+            width: auto;
+        }
+
+        @media (min-width: 768px) {
+            .brand-logo {
+                height: 60px;
+            }
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: var(--spacing-lg);
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--color-black);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-accent);
+        }
+
+        .nav-links a:focus {
+            outline: 2px solid var(--color-black);
+            outline-offset: 4px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: var(--spacing-xs);
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-toggle {
+                display: none;
+            }
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--color-white);
+            z-index: 100;
+            padding: var(--spacing-2xl) var(--spacing-md);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu nav {
+            margin-top: var(--spacing-2xl);
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .mobile-menu a {
+            font-size: 1.25rem;
+            color: var(--color-black);
+            text-decoration: none;
+        }
+
+        .breadcrumb {
+            padding: var(--spacing-md) 0;
+            font-size: 0.85rem;
+            color: var(--color-black);
+            opacity: 0.6;
+        }
+
+        .breadcrumb a {
+            color: var(--color-black);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--color-accent);
+        }
+
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(rgba(11, 11, 11, 0.4), rgba(11, 11, 11, 0.4)), url('img/bienestar-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: var(--spacing-2xl) var(--spacing-md);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600;
+            color: var(--color-white);
+            letter-spacing: 0.02em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1.25rem, 3vw, 2rem);
+            font-weight: 400;
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-text {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-xl);
+            opacity: 0.95;
+            max-width: 65ch;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: all var(--transition-speed) ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border-color: var(--color-black);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .btn-secondary {
+            background-color: var(--color-white);
+            color: var(--color-black);
+            border-color: var(--color-white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-stone-light);
+        }
+
+        .btn-inverted {
+            background-color: var(--color-white);
+            color: var(--color-black);
+            border: 1px solid var(--color-white);
+        }
+
+        .btn-inverted:hover {
+            background-color: var(--color-stone-light);
+            border-color: var(--color-stone-light);
+        }
+
+        .btn-large {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .section {
+            padding: var(--spacing-3xl) 0;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            letter-spacing: 0.02em;
+        }
+
+        .para-quien-section {
+            background-color: var(--color-white);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        @media (min-width: 768px) {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .card:hover {
+            background-color: var(--color-stone-light);
+            box-shadow: 0 2px 8px rgba(11, 11, 11, 0.04);
+        }
+
+        .card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--color-black);
+            opacity: 0.85;
+        }
+
+        .enfoque-section {
+            background-color: var(--color-stone-light);
+        }
+
+        .enfoque-block {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-2xl);
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .enfoque-block {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .enfoque-block.reverse {
+                direction: rtl;
+            }
+            
+            .enfoque-block.reverse > * {
+                direction: ltr;
+            }
+        }
+
+        .enfoque-image {
+            width: 100%;
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--border-radius);
+        }
+
+        .enfoque-content h3 {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .enfoque-content p {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: var(--spacing-md);
+            max-width: 65ch;
+        }
+
+        .enfoque-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .enfoque-content li {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            padding-left: var(--spacing-md);
+            position: relative;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .enfoque-content li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+
+        .modalidades-section {
+            background-color: var(--color-white);
+        }
+
+        .modalidades-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        @media (min-width: 768px) {
+            .modalidades-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .modalidad-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            text-align: center;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .modalidad-card:hover {
+            background-color: var(--color-stone-light);
+            box-shadow: 0 2px 8px rgba(11, 11, 11, 0.04);
+        }
+
+        .modalidad-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .modalidad-duration {
+            font-size: 0.9rem;
+            color: var(--color-accent);
+            margin-bottom: var(--spacing-md);
+            font-weight: 500;
+        }
+
+        .modalidad-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.85;
+        }
+
+        .modalidad-note {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: var(--spacing-xl);
+            text-align: center;
+            max-width: 65ch;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .metodo-section {
+            background-color: var(--color-stone-light);
+        }
+
+        .metodo-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-lg);
+            max-width: 900px;
+            margin: 0 auto var(--spacing-xl);
+        }
+
+        @media (min-width: 768px) {
+            .metodo-diagram {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        .metodo-step {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .metodo-arrow {
+            font-size: 1.5rem;
+            opacity: 0.5;
+            transform: rotate(90deg);
+        }
+
+        @media (min-width: 768px) {
+            .metodo-arrow {
+                transform: rotate(0deg);
+            }
+        }
+
+        .metodo-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        @media (min-width: 768px) {
+            .metodo-details {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .metodo-detail {
+            text-align: center;
+        }
+
+        .metodo-detail h4 {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .metodo-detail p {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            max-width: 65ch;
+            margin: 0 auto;
+        }
+
+        .faq-section {
+            background-color: var(--color-white);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        details {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        summary {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: "+";
+            font-size: 1.5rem;
+            font-weight: 400;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        details p {
+            margin-top: var(--spacing-md);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+            max-width: 65ch;
+        }
+
+        .cta-final {
+            padding: var(--spacing-3xl) var(--spacing-md);
+            background-color: var(--color-black);
+            color: var(--color-white);
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto var(--spacing-2xl);
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--color-black);
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(15, 61, 46, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info {
+            margin-top: var(--spacing-xl);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .contact-info p {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .form-message {
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 500;
+            background-color: rgba(15, 61, 46, 0.2);
+            color: var(--color-white);
+            border: 1px solid rgba(15, 61, 46, 0.4);
+            display: none;
+        }
+
+        .form-message.show {
+            display: block;
+        }
+
+        .footer {
+            background-color: #1a1a1a;
+            color: var(--color-white);
+            padding: var(--spacing-lg) 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-md);
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            color: var(--color-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="index.html">
+                    <img src="img/logo.jpg" alt="ANGLARD" class="brand-logo">
+                </a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="executive-finance.html">Executive Finance</a></li>
+                        <li><a href="bienestar-corporal.html" class="active">Bienestar Corporal</a></li>
+                        <li><a href="formacion.html">Formación</a></li>
+                        <li><a href="makawan.html">Makawán</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+                <button class="mobile-menu-toggle" aria-label="Abrir menú">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Cerrar menú">×</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="executive-finance.html">Executive Finance</a></li>
+                <li><a href="bienestar-corporal.html">Bienestar Corporal</a></li>
+                <li><a href="formacion.html">Formación</a></li>
+                <li><a href="makawan.html">Makawán</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Inicio</a> / Bienestar Corporal
+        </div>
+    </div>
+
+    <main id="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Bienestar Corporal</h1>
+                <h2 class="hero-subtitle">Recuperación profunda con técnica y presencia.</h2>
+                <p class="hero-text">Intervenciones corporales de alto nivel para aliviar carga física, restaurar movilidad y devolver calma al sistema.</p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="btn btn-primary">Agendar sesión</a>
+                    <a href="#enfoque" class="btn btn-secondary">Ver enfoque</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="para-quien" class="section para-quien-section">
+            <div class="container">
+                <h2 class="section-title">¿Para quién es?</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>Cuerpo con carga</h3>
+                        <p>Estrés, tensión crónica, fatiga, cuello/espalda rígidos, sensación de 'traer el cuerpo encima'.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Dolor funcional</h3>
+                        <p>Molestias por postura, entrenamiento, trabajo físico, viajes, o sedentarismo. No prometo milagros; diseño alivio realista.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Alto desempeño</h3>
+                        <p>Personas que rinden alto y necesitan mantenimiento inteligente: recuperación, movilidad, descanso y enfoque.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="enfoque" class="section enfoque-section">
+            <div class="container">
+                <h2 class="section-title">Enfoque Anglard</h2>
+                
+                <div class="enfoque-block">
+                    <div class="enfoque-image" style="background-image: url('img/bienestar-1.jpg')"></div>
+                    <div class="enfoque-content">
+                        <h3>Técnica con intención</h3>
+                        <p>No improviso. Leo el cuerpo, priorizo seguridad, y trabajo con precisión: presión, ritmo, respiración y estructura.</p>
+                        <ul>
+                            <li>Evaluación rápida al inicio</li>
+                            <li>Intervención por capas (superficial a profunda)</li>
+                            <li>Movilidad suave cuando aplica</li>
+                            <li>Cierre con integración y calma</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="enfoque-block reverse">
+                    <div class="enfoque-image" style="background-image: url('img/bienestar-2.jpg')"></div>
+                    <div class="enfoque-content">
+                        <h3>Recuperación profunda</h3>
+                        <p>El objetivo no es solo 'relajar': es restaurar función. Menos dolor, más rango de movimiento, mejor descanso.</p>
+                        <ul>
+                            <li>Descarga miofascial</li>
+                            <li>Trabajo en cadenas musculares</li>
+                            <li>Enfoque en zona cervical, dorsal, lumbar (según necesidad)</li>
+                            <li>Ritmo terapéutico (sin prisa)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="enfoque-block">
+                    <div class="enfoque-image" style="background-image: url('img/bienestar-3.jpg')"></div>
+                    <div class="enfoque-content">
+                        <h3>Presencia y contención</h3>
+                        <p>Un cuerpo se suelta cuando se siente seguro. Aquí hay técnica, pero también contención: espacio, límites y respeto.</p>
+                        <ul>
+                            <li>Comunicación clara</li>
+                            <li>Consentimiento y límites</li>
+                            <li>Ambiente sobrio y limpio</li>
+                            <li>Cierre para bajar revoluciones</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="modalidades" class="section modalidades-section">
+            <div class="container">
+                <h2 class="section-title">Modalidades</h2>
+                <div class="modalidades-grid">
+                    <div class="modalidad-card">
+                        <h3>Sesión Integral</h3>
+                        <p class="modalidad-duration">90–120 min</p>
+                        <p>Intervención completa: descarga + movilidad + cierre.</p>
+                        <a href="#contacto" class="btn btn-primary">Solicitar disponibilidad</a>
+                    </div>
+                    <div class="modalidad-card">
+                        <h3>Sesión de Recuperación</h3>
+                        <p class="modalidad-duration">60–90 min</p>
+                        <p>Enfoque en dolor funcional y rango de movimiento.</p>
+                        <a href="#contacto" class="btn btn-primary">Solicitar disponibilidad</a>
+                    </div>
+                    <div class="modalidad-card">
+                        <h3>Experiencia Ritual</h3>
+                        <p class="modalidad-duration">90–120 min</p>
+                        <p>Para quien busca integración cuerpo–energía con sobriedad.</p>
+                        <a href="#contacto" class="btn btn-primary">Solicitar disponibilidad</a>
+                    </div>
+                </div>
+                <p class="modalidad-note">Las sesiones se personalizan. No publico precios en web: dependen del formato, logística y objetivo.</p>
+            </div>
+        </section>
+
+        <section id="metodo" class="section metodo-section">
+            <div class="container">
+                <h2 class="section-title">Método en 3 pasos</h2>
+                <div class="metodo-diagram">
+                    <div class="metodo-step">EVALUACIÓN</div>
+                    <div class="metodo-arrow">→</div>
+                    <div class="metodo-step">INTERVENCIÓN</div>
+                    <div class="metodo-arrow">→</div>
+                    <div class="metodo-step">INTEGRACIÓN</div>
+                </div>
+                <div class="metodo-details">
+                    <div class="metodo-detail">
+                        <h4>Evaluación</h4>
+                        <p>Ubico tensión, limitaciones y objetivos.</p>
+                    </div>
+                    <div class="metodo-detail">
+                        <h4>Intervención</h4>
+                        <p>Trabajo por capas con precisión.</p>
+                    </div>
+                    <div class="metodo-detail">
+                        <h4>Integración</h4>
+                        <p>Cierro para que el cuerpo mantenga el cambio.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="section faq-section">
+            <div class="container">
+                <h2 class="section-title">Preguntas frecuentes</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>¿Duele?</summary>
+                        <p>A veces hay intensidad terapéutica, pero nunca debe ser agresivo. Ajusto presión y ritmo contigo.</p>
+                    </details>
+                    <details>
+                        <summary>¿Atiendes lesiones?</summary>
+                        <p>Trabajo con dolor funcional y tensión. Si hay lesión aguda o condición médica, pido contexto y ajusto; en ciertos casos recomiendo valoración médica.</p>
+                    </details>
+                    <details>
+                        <summary>¿Qué necesito preparar?</summary>
+                        <p>Espacio limpio, silencio posible, y ropa cómoda. Si es a domicilio, llevo lo esencial.</p>
+                    </details>
+                    <details>
+                        <summary>¿Publicas precios?</summary>
+                        <p>No. Prefiero cotizar según objetivo, duración y logística. Así sostengo calidad.</p>
+                    </details>
+                    <details>
+                        <summary>¿Cada cuánto conviene?</summary>
+                        <p>Depende de tu carga. Para mantenimiento: cada 2–4 semanas. Para fase intensiva: semanal por un periodo corto.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="cta-final">
+            <div class="container">
+                <h2 class="cta-title">Trabajemos con intención.</h2>
+                
+                <form action="https://formspree.io/f/mvzbrabg" method="POST" class="contact-form" id="contactForm">
+                    <div class="form-message" id="formMessage">¡Mensaje enviado con éxito! Te contactaremos pronto.</div>
+                    
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cellphone">Celular</label>
+                        <input type="tel" id="cellphone" name="cellphone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mensaje</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-inverted btn-large">Enviar</button>
+                </form>
+                
+                <div class="contact-info">
+                    <p>CDMX — México</p>
+                    <p>WhatsApp: +52 56 3709 1144</p>
+                    <p>Correo: jorge.anglard@gmail.com</p>
+                    <p>LinkedIn: linkedin.com/in/anglard-cervantes-ab5b465</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">ANGLARD 2026</p>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Aviso de privacidad</a></li>
+                    <li><a href="#top">Volver arriba</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.documentElement.style.scrollBehavior = 'smooth';
+        
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.style.scrollBehavior = 'auto';
+        }
+
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        const form = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    formMessage.classList.add('show');
+                    form.reset();
+                    setTimeout(() => {
+                        formMessage.classList.remove('show');
+                    }, 5000);
+                } else {
+                    formMessage.innerHTML = 'Hubo un problema. Por favor intenta nuevamente.';
+                    formMessage.classList.add('show');
+                }
+            }).catch(error => {
+                formMessage.innerHTML = 'Hubo un error. Por favor intenta nuevamente.';
+                formMessage.classList.add('show');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makawán — ANGLARD</title>
+    <meta name="description" content="Lenguaje, símbolo y arquitectura narrativa. Diseño de sistemas conceptuales y construcción de significado.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-white: #FFFFFF;
+            --color-black: #0B0B0B;
+            --color-stone-light: #F4F4F2;
+            --color-border: #E6E6E3;
+            --color-accent: #0F3D2E;
+            
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Inter', sans-serif;
+            
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 96px;
+            
+            --border-radius: 14px;
+            --transition-speed: 200ms;
+            
+            --container-max: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-black);
+            background-color: var(--color-white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: var(--spacing-sm);
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-lg);
+            }
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 50;
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) 0;
+        }
+
+        .brand-logo {
+            height: 50px;
+            width: auto;
+        }
+
+        @media (min-width: 768px) {
+            .brand-logo {
+                height: 60px;
+            }
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: var(--spacing-lg);
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--color-black);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-accent);
+        }
+
+        .nav-links a:focus {
+            outline: 2px solid var(--color-black);
+            outline-offset: 4px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: var(--spacing-xs);
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-toggle {
+                display: none;
+            }
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--color-white);
+            z-index: 100;
+            padding: var(--spacing-2xl) var(--spacing-md);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu nav {
+            margin-top: var(--spacing-2xl);
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .mobile-menu a {
+            font-size: 1.25rem;
+            color: var(--color-black);
+            text-decoration: none;
+        }
+
+        .breadcrumb {
+            padding: var(--spacing-md) 0;
+            font-size: 0.85rem;
+            color: var(--color-black);
+            opacity: 0.6;
+        }
+
+        .breadcrumb a {
+            color: var(--color-black);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--color-accent);
+        }
+
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(rgba(11, 11, 11, 0.6), rgba(11, 11, 11, 0.6)), url('img/makawan-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: var(--spacing-2xl) var(--spacing-md);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600;
+            color: var(--color-white);
+            letter-spacing: 0.02em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1.25rem, 3vw, 2rem);
+            font-weight: 400;
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-text {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-xl);
+            opacity: 0.95;
+            max-width: 65ch;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: all var(--transition-speed) ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border-color: var(--color-black);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .btn-secondary {
+            background-color: var(--color-white);
+            color: var(--color-black);
+            border-color: var(--color-white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-stone-light);
+        }
+
+        .btn-inverted {
+            background-color: var(--color-white);
+            color: var(--color-black);
+            border: 1px solid var(--color-white);
+        }
+
+        .btn-inverted:hover {
+            background-color: var(--color-stone-light);
+            border-color: var(--color-stone-light);
+        }
+
+        .btn-large {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .section {
+            padding: var(--spacing-3xl) 0;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            letter-spacing: 0.02em;
+        }
+
+        .intro-section {
+            background-color: var(--color-stone-light);
+        }
+
+        .intro-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .intro-quote {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: var(--spacing-xl);
+            font-style: italic;
+        }
+
+        .intro-content p {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.9;
+        }
+
+        .dimensiones-section {
+            background-color: var(--color-white);
+        }
+
+        .dimensiones-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-2xl);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .dimension-item {
+            border-left: 3px solid var(--color-accent);
+            padding-left: var(--spacing-lg);
+        }
+
+        .dimension-item h3 {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .dimension-item p {
+            font-size: 1rem;
+            line-height: 1.7;
+            opacity: 0.85;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .dimension-item ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: var(--spacing-md);
+        }
+
+        .dimension-item li {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            padding-left: var(--spacing-md);
+            position: relative;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .dimension-item li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+
+        .proyectos-section {
+            background-color: var(--color-stone-light);
+        }
+
+        .proyectos-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        @media (min-width: 768px) {
+            .proyectos-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .proyecto-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .proyecto-card:hover {
+            background-color: var(--color-stone-light);
+            box-shadow: 0 2px 8px rgba(11, 11, 11, 0.04);
+        }
+
+        .proyecto-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--color-accent);
+            background-color: rgba(15, 61, 46, 0.1);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 6px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .proyecto-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .proyecto-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+        }
+
+        .enfoque-section {
+            background-color: var(--color-white);
+        }
+
+        .enfoque-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        @media (min-width: 768px) {
+            .enfoque-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .enfoque-card {
+            text-align: center;
+            padding: var(--spacing-lg);
+        }
+
+        .enfoque-symbol {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+            font-family: var(--font-serif);
+            color: var(--color-accent);
+        }
+
+        .enfoque-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .enfoque-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+        }
+
+        .proceso-section {
+            background-color: var(--color-stone-light);
+        }
+
+        .proceso-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .proceso-intro {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .proceso-intro p {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .proceso-steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        .proceso-step {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: var(--spacing-lg);
+            align-items: start;
+        }
+
+        .proceso-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .proceso-step-content h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .proceso-step-content p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+        }
+
+        .para-quien-section {
+            background-color: var(--color-white);
+        }
+
+        .para-quien-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        @media (min-width: 768px) {
+            .para-quien-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .para-quien-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+        }
+
+        .para-quien-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .para-quien-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+        }
+
+        .faq-section {
+            background-color: var(--color-stone-light);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        details {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        summary {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: "+";
+            font-size: 1.5rem;
+            font-weight: 400;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        details p {
+            margin-top: var(--spacing-md);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+            max-width: 65ch;
+        }
+
+        .cta-final {
+            padding: var(--spacing-3xl) var(--spacing-md);
+            background-color: var(--color-black);
+            color: var(--color-white);
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto var(--spacing-2xl);
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--color-black);
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(15, 61, 46, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info {
+            margin-top: var(--spacing-xl);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .contact-info p {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .form-message {
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 500;
+            background-color: rgba(15, 61, 46, 0.2);
+            color: var(--color-white);
+            border: 1px solid rgba(15, 61, 46, 0.4);
+            display: none;
+        }
+
+        .form-message.show {
+            display: block;
+        }
+
+        .footer {
+            background-color: #1a1a1a;
+            color: var(--color-white);
+            padding: var(--spacing-lg) 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-md);
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            color: var(--color-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="index.html">
+                    <img src="img/logo.jpg" alt="ANGLARD" class="brand-logo">
+                </a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="executive-finance.html">Executive Finance</a></li>
+                        <li><a href="bienestar-corporal.html">Bienestar Corporal</a></li>
+                        <li><a href="formacion.html">Formación</a></li>
+                        <li><a href="makawan.html" class="active">Makawán</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+                <button class="mobile-menu-toggle" aria-label="Abrir menú">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Cerrar menú">×</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="executive-finance.html">Executive Finance</a></li>
+                <li><a href="bienestar-corporal.html">Bienestar Corporal</a></li>
+                <li><a href="formacion.html">Formación</a></li>
+                <li><a href="makawan.html">Makawán</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Inicio</a> / Makawán
+        </div>
+    </div>
+
+    <main id="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Makawán</h1>
+                <h2 class="hero-subtitle">Lenguaje, símbolo y arquitectura narrativa.</h2>
+                <p class="hero-text">Diseño de sistemas conceptuales, construcción de significado y traducción entre mundos simbólicos. Donde el lenguaje estructura realidad.</p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="btn btn-primary">Explorar proyectos</a>
+                    <a href="#dimensiones" class="btn btn-secondary">Ver enfoque</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section intro-section">
+            <div class="container">
+                <div class="intro-content">
+                    <p class="intro-quote">"El lenguaje no describe la realidad. La construye."</p>
+                    <p>Makawán es el espacio donde trabajo con la estructura profunda del significado: cómo nombramos las cosas, cómo organizamos conceptos, cómo traducimos entre sistemas simbólicos.</p>
+                    <p>No es marketing. No es branding. Es arquitectura conceptual: diseñar los marcos desde los cuales pensamos, las categorías que usamos para entender el mundo y las narrativas que estructuran nuestra experiencia.</p>
+                    <p>Trabajo con individuos, organizaciones y proyectos que necesitan claridad semántica, coherencia simbólica o traducción entre mundos de significado incompatibles.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dimensiones" class="section dimensiones-section">
+            <div class="container">
+                <h2 class="section-title">Dimensiones de Trabajo</h2>
+                <div class="dimensiones-grid">
+                    <div class="dimension-item">
+                        <h3>Arquitectura Conceptual</h3>
+                        <p>Diseño de sistemas de categorías, taxonomías y ontologías para organizar conocimiento complejo. Desde estructuras de información hasta frameworks filosóficos.</p>
+                        <ul>
+                            <li>Diseño de taxonomías y tipologías</li>
+                            <li>Mapeo de espacios conceptuales</li>
+                            <li>Construcción de frameworks de pensamiento</li>
+                            <li>Sistemas de clasificación y organización</li>
+                        </ul>
+                    </div>
+
+                    <div class="dimension-item">
+                        <h3>Traducción Simbólica</h3>
+                        <p>Traducción entre lenguajes especializados, sistemas de significado incompatibles o mundos culturales distintos. Encontrar equivalencias donde no las hay.</p>
+                        <ul>
+                            <li>Traducción técnico-ejecutivo-público</li>
+                            <li>Mapeo entre marcos filosóficos</li>
+                            <li>Interpretación de sistemas simbólicos tradicionales</li>
+                            <li>Puentes entre disciplinas inconmensurables</li>
+                        </ul>
+                    </div>
+
+                    <div class="dimension-item">
+                        <h3>Construcción Narrativa</h3>
+                        <p>Diseño de narrativas coherentes que integran elementos dispersos en una estructura de significado funcional. No storytelling: arquitectura de sentido.</p>
+                        <ul>
+                            <li>Narrativas fundacionales para organizaciones</li>
+                            <li>Estructura de mitos personales y colectivos</li>
+                            <li>Genealogías conceptuales</li>
+                            <li>Arcos de transformación simbólica</li>
+                        </ul>
+                    </div>
+
+                    <div class="dimension-item">
+                        <h3>Semántica Organizacional</h3>
+                        <p>Clarificación del lenguaje interno de organizaciones: qué significan realmente los términos que usan, qué revelan las metáforas que emplean, qué ocultan sus eufemismos.</p>
+                        <ul>
+                            <li>Auditoría del lenguaje organizacional</li>
+                            <li>Análisis de metáforas estructurantes</li>
+                            <li>Diseño de glosarios y vocabularios compartidos</li>
+                            <li>Mapeo de significados implícitos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyectos" class="section proyectos-section">
+            <div class="container">
+                <h2 class="section-title">Tipos de Proyectos</h2>
+                <div class="proyectos-grid">
+                    <div class="proyecto-card">
+                        <span class="proyecto-tag">Editorial</span>
+                        <h3>Proyectos Editoriales</h3>
+                        <p>Colaboración en libros, ensayos y publicaciones que requieren rigor conceptual, estructura argumental sólida o traducción de ideas complejas a prosa clara.</p>
+                    </div>
+
+                    <div class="proyecto-card">
+                        <span class="proyecto-tag">Organizacional</span>
+                        <h3>Clarificación de Misión</h3>
+                        <p>Trabajo con fundadores y equipos para articular con precisión qué hacen, por qué existe su organización y cómo comunican su propósito sin jerga vacía.</p>
+                    </div>
+
+                    <div class="proyecto-card">
+                        <span class="proyecto-tag">Académico</span>
+                        <h3>Desarrollo de Frameworks</h3>
+                        <p>Diseño de marcos conceptuales, modelos teóricos y sistemas de pensamiento para investigación, docencia o proyectos intelectuales de largo aliento.</p>
+                    </div>
+
+                    <div class="proyecto-card">
+                        <span class="proyecto-tag">Personal</span>
+                        <h3>Cartografía Simbólica Personal</h3>
+                        <p>Mapeo del universo simbólico individual: arquetipos, metáforas personales, mitos fundacionales y estructura narrativa de la propia vida.</p>
+                    </div>
+
+                    <div class="proyecto-card">
+                        <span class="proyecto-tag">Cultural</span>
+                        <h3>Interpretación de Símbolos</h3>
+                        <p>Análisis e interpretación de sistemas simbólicos tradicionales (alquimia, tarot, I Ching) como herramientas de pensamiento estructural.</p>
+                    </div>
+
+                    <div class="proyecto-card">
+                        <span class="proyecto-tag">Estratégico</span>
+                        <h3>Narrativa de Marca Profunda</h3>
+                        <p>No branding superficial: construcción de la narrativa fundacional y sistema simbólico que sostiene una marca u organización desde sus cimientos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section enfoque-section">
+            <div class="container">
+                <h2 class="section-title">Enfoque</h2>
+                <div class="enfoque-grid">
+                    <div class="enfoque-card">
+                        <div class="enfoque-symbol">∴</div>
+                        <h3>Rigor estructural</h3>
+                        <p>El lenguaje tiene estructura. Los símbolos tienen lógica. Las narrativas tienen arquitectura. No improviso: construyo con precisión.</p>
+                    </div>
+                    <div class="enfoque-card">
+                        <div class="enfoque-symbol">⊕</div>
+                        <h3>Síntesis transdisciplinar</h3>
+                        <p>Integro filosofía, semiótica, antropología, psicología profunda y análisis estructural. El significado no respeta fronteras académicas.</p>
+                    </div>
+                    <div class="enfoque-card">
+                        <div class="enfoque-symbol">◬</div>
+                        <h3>Aplicabilidad concreta</h3>
+                        <p>No me interesa el simbolismo como ornamento. Me interesa como herramienta: sistemas de significado que generan claridad y acción.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section proceso-section">
+            <div class="container">
+                <h2 class="section-title">Proceso</h2>
+                <div class="proceso-content">
+                    <div class="proceso-intro">
+                        <p>Cada proyecto es único, pero generalmente sigo esta estructura:</p>
+                    </div>
+                    <div class="proceso-steps">
+                        <div class="proceso-step">
+                            <div class="proceso-number">1</div>
+                            <div class="proceso-step-content">
+                                <h3>Inmersión</h3>
+                                <p>Conversaciones profundas para entender el mundo simbólico, el lenguaje implícito, las metáforas subyacentes y las estructuras de significado actuales.</p>
+                            </div>
+                        </div>
+
+                        <div class="proceso-step">
+                            <div class="proceso-number">2</div>
+                            <div class="proceso-step-content">
+                                <h3>Mapeo</h3>
+                                <p>Construcción de un mapa conceptual: taxonomías, categorías, relaciones, oposiciones, jerarquías y flujos de significado. Visualización de lo invisible.</p>
+                            </div>
+                        </div>
+
+                        <div class="proceso-step">
+                            <div class="proceso-number">3</div>
+                            <div class="proceso-step-content">
+                                <h3>Diseño</h3>
+                                <p>Construcción de la nueva arquitectura: sistema conceptual, narrativa integradora, glosario preciso o framework operativo según el proyecto.</p>
+                            </div>
+                        </div>
+
+                        <div class="proceso-step">
+                            <div class="proceso-number">4</div>
+                            <div class="proceso-step-content">
+                                <h3>Implementación</h3>
+                                <p>Traducción del sistema a formas utilizables: documentos, presentaciones, talleres, guías o protocolos para que el trabajo tenga vida práctica.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section para-quien-section">
+            <div class="container">
+                <h2 class="section-title">¿Para quién es?</h2>
+                <div class="para-quien-grid">
+                    <div class="para-quien-card">
+                        <h3>Escritores y Editores</h3>
+                        <p>Que trabajan con ideas complejas y necesitan estructurar argumentos, clarificar conceptos o encontrar el lenguaje preciso para lo inefable.</p>
+                    </div>
+                    <div class="para-quien-card">
+                        <h3>Fundadores Reflexivos</h3>
+                        <p>Que buscan articular la esencia de su proyecto más allá de los lugares comunes del emprendimiento y el marketing corporativo.</p>
+                    </div>
+                    <div class="para-quien-card">
+                        <h3>Académicos e Investigadores</h3>
+                        <p>Trabajando en fronteras disciplinares, desarrollando nuevos frameworks o traduciendo conocimiento especializado a públicos diversos.</p>
+                    </div>
+                    <div class="para-quien-card">
+                        <h3>Buscadores de Sentido</h3>
+                        <p>Individuos en procesos de transformación personal que necesitan mapear su universo simbólico y construir narrativas coherentes de su experiencia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section faq-section">
+            <div class="container">
+                <h2 class="section-title">Preguntas Frecuentes</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>¿Esto es filosofía aplicada?</summary>
+                        <p>Sí, pero no solo. Es síntesis de filosofía, semiótica, antropología simbólica y análisis estructural. Lo importante no es la disciplina sino la capacidad de trabajar con significado de manera rigurosa.</p>
+                    </details>
+                    <details>
+                        <summary>¿Qué formación tienes en este campo?</summary>
+                        <p>Formación transdisciplinar: filosofía, estudios culturales, semiótica y años de trabajo con sistemas simbólicos tradicionales (alquimia, tarot, mitología). Pero sobre todo: práctica constante.</p>
+                    </details>
+                    <details>
+                        <summary>¿Cuánto dura un proyecto típico?</summary>
+                        <p>Desde 2-3 sesiones para clarificaciones puntuales, hasta 3-6 meses para proyectos complejos como desarrollo de frameworks o narrativas organizacionales profundas.</p>
+                    </details>
+                    <details>
+                        <summary>¿Trabajas con organizaciones comerciales?</summary>
+                        <p>Sí, cuando el proyecto requiere profundidad real. No hago naming, taglines ni branding superficial. Trabajo con fundadores que entienden que el lenguaje estructura cómo opera su organización.</p>
+                    </details>
+                    <details>
+                        <summary>¿Qué entregas concretas produces?</summary>
+                        <p>Depende del proyecto: mapas conceptuales, frameworks documentados, glosarios precisos, narrativas estructuradas, guías de uso del sistema simbólico. Siempre algo utilizable, no solo conversación.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="cta-final">
+            <div class="container">
+                <h2 class="cta-title">Trabajemos con intención.</h2>
+                
+                <form action="https://formspree.io/f/mvzbrabg" method="POST" class="contact-form" id="contactForm">
+                    <div class="form-message" id="formMessage">¡Mensaje enviado con éxito! Te contactaremos pronto.</div>
+                    
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cellphone">Celular</label>
+                        <input type="tel" id="cellphone" name="cellphone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mensaje</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-inverted btn-large">Enviar</button>
+                </form>
+                
+                <div class="contact-info">
+                    <p>CDMX — México</p>
+                    <p>WhatsApp: +52 56 3709 1144</p>
+                    <p>Correo: jorge.anglard@gmail.com</p>
+                    <p>LinkedIn: linkedin.com/in/anglard-cervantes-ab5b465</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">ANGLARD 2026</p>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Aviso de privacidad</a></li>
+                    <li><a href="#top">Volver arriba</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.documentElement.style.scrollBehavior = 'smooth';
+        
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.style.scrollBehavior = 'auto';
+        }
+
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        const form = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    formMessage.classList.add('show');
+                    form.reset();
+                    setTimeout(() => {
+                        formMessage.classList.remove('show');
+                    }, 5000);
+                } else {
+                    formMessage.innerHTML = 'Hubo un problema. Por favor intenta nuevamente.';
+                    formMessage.classList.add('show');
+                }
+            }).catch(error => {
+                formMessage.innerHTML = 'Hubo un error. Por favor intenta nuevamente.';
+                formMessage.classList.add('show');
+            });
+        });
+    </script>
+</body>
+</html>
